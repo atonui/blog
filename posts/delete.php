@@ -32,5 +32,5 @@ if ($post->check_id()) {
 } else {
     http_response_code(404);
     echo json_encode(array("message" => "Post does not exist."));
-    print_r($post->post_id) 
+    print_r($post->post_id); 
 }

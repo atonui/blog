@@ -122,7 +122,7 @@ class Post {
     }
 
     public function check_id() {
-        $query = "SELECT * FROM ".$this->table_name."WHERE post_id=? LIMIT 1";
+        $query = "SELECT * FROM ".$this->table_name." WHERE post_id=? LIMIT 1";
         $result = $this->conn->prepare($query);
         $result->bindParam(1, $this->post_id, PDO::PARAM_INT);
         $result->execute();
@@ -135,9 +135,10 @@ class Post {
     }
 
     public function delete() {
-        $query = "DELETE FROM ".$this->table_name."WHERE post_id=?";
-        $result = bindParam(1, $this->post_id, PDO::PARAM_INT);
-        if($result->execute()) {
+        $query = "DELETE FROM ".$this->table_name." WHERE post_id=?";
+        $result = $this->conn->prepare($query);
+        // $result = bindParam(1, $this->post_id, PDO::PARAM_INT);
+        if($result->execute(array($this->post_id))) {
             return true;
         } else {
             return false;
