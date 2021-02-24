@@ -40,7 +40,7 @@ class Post {
         $result->bindParam(1, $this->post_id);
         $result->execute();
 
-        // get retreive row
+        // get retrieve row
         $row = $result->fetch(PDO::FETCH_ASSOC);
 
         //set values to object properties
