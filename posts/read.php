@@ -24,7 +24,7 @@ if ($count > 0) {
     $posts_array = array();
     $posts_array['records'] = array();
 
-    // retreive the posts using fetch()
+    // retrieve the posts using fetch()
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         // extract row
         // this will make $row['post_content'] to $post_content
@@ -54,6 +54,6 @@ if ($count > 0) {
 } else {
     // set response code to 404 not found
     http_response_code(404);
-    // tell the usee that no posts were found
+    // tell the user that no posts were found
     echo json_encode(array("message"=>"No posts found."));
 }

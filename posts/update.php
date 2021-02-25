@@ -37,7 +37,7 @@ $post->post_status = $data->post_status;
 $post->post_author_id = $data->post_author_id;
 $post->post_views_count = $data->post_views_count;
 
-// update the product
+// update the post
 if($post->update()) {
     http_response_code(200);
     echo json_encode(array("message" => "Post updated."));
