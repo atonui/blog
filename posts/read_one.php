@@ -7,8 +7,8 @@ header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 
 // include database and post object files
-include_once '../config/database.php';
-include_once '../objects/post.php';
+include_once '../config/Database.php';
+include_once '../objects/Post.php';
 
 // instantiate database and post objects
 $database = new Database();
@@ -50,7 +50,7 @@ if (isset($_GET['post_id']) && $_GET['post_id']!="") {
     } else {
         // set response code to 404 not found
         http_response_code(404);
-        // tell the usee that no posts were found
+        // tell the user that no posts were found
         echo json_encode(array("message"=>"No post found."));
     }
 }

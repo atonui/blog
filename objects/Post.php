@@ -24,6 +24,8 @@ class Post {
         $this->conn = $db;
     }
 
+    // CREATE A FUNCTION THAT LOOPS THROUGH DATABASE RESULTS AND PUTS THEM INTO A JSON OBJECT
+
     // function to read all posts
     public function read() {
         $query = "SELECT * FROM ".$this->table_name;
@@ -40,7 +42,7 @@ class Post {
         $result->bindParam(1, $this->post_id);
         $result->execute();
 
-        // get retrieve row
+        // retrieve rows from results
         $row = $result->fetch(PDO::FETCH_ASSOC);
 
         //set values to object properties
@@ -84,7 +86,7 @@ class Post {
         $this->post_status,$this->post_author_id,$this->post_views_count])) {
             return true;
         } else {
-            print_r($result->errorInfo());
+            // print_r($result->errorInfo());
             return false;
         }
     }
@@ -143,5 +145,23 @@ class Post {
         } else {
             return false;
         }
+    }
+
+    public function search($keywords) {
+        $query = "SELECT * FROM ".$this->table_name." WHERE post_title LIKE ? OR post_author LIKE ?
+        OR post_content LIKE ? OR post_tags LIKE ? ORDER BY post_id DESC";
+
+        $results = $this->conn->prepare($query);
+        // sanitize inputs
+        $keywords = htmlspecialchars(strip_tags($keywords));
+        $keywords = "%{$keywords}%";
+        // bind parameters
+        $results->bindParam(1, $keywords);
+        $results->bindParam(2, $keywords);
+        $results->bindParam(3, $keywords);
+        $results->bindParam(4, $keywords);
+        //execute query
+        $results->execute();
+        return $results;
     }
 }

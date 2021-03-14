@@ -7,8 +7,8 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // include required files
-include_once '../config/database.php';
-include_once '../objects/post.php';
+include_once '../config/Database.php';
+include_once '../objects/Post.php';
 
 //create database and post objects
 $database = new Database();

@@ -4,8 +4,8 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 // include database and post object files
-include_once '../config/database.php';
-include_once '../objects/post.php';
+include_once '../config/Database.php';
+include_once '../objects/Post.php';
 
 // instantiate database and post objects
 $database = new Database();
@@ -30,18 +30,18 @@ if ($count > 0) {
         // this will make $row['post_content'] to $post_content
         extract($row);
         $post_item = array(
-            "post_id" => $post_id,
-            "post_category_id" => $post_category_id,
-            "post_title" => $post_title,
-            "post_author" => $post_author,
-            "post_date" => $post_date,
-            "post_image" => $post_image,
-            "post_content" => $post_content,
-            "post_tags" => $post_tags,
-            "post_comment_count" => $post_comment_count,
-            "post_status" => $post_status,
-            "post_author_id" => $post_author_id,
-            "post_views_count" => $post_views_count
+            "post_id" => $row['post_id'],
+            "post_category_id" => $row['post_category_id'],
+            "post_title" => $row['post_title'],
+            "post_author" => $row['post_author'],
+            "post_date" => $row['post_date'],
+            "post_image" => $row['post_image'],
+            "post_content" => $row['post_content'],
+            "post_tags" => $row['post_tags'],
+            "post_comment_count" => $row['post_comment_count'],
+            "post_status" => $row['post_status'],
+            "post_author_id" => $row['post_author_id'],
+            "post_views_count" => $row['post_views_count']
         );
         array_push($posts_array['records'], $post_item);
     }

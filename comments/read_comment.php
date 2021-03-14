@@ -6,8 +6,8 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 // include files
-include_once '../config/database.php';
-include_once '../objects/comments.php';
+include_once '../config/Database.php';
+include_once '../objects/Comment.php';
 
 // check for GET variable
 if (isset($_GET['post_id']) && $_GET['post_id'] !="") {

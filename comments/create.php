@@ -7,8 +7,8 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 // include necessary files
-include_once '../config/database.php';
-include_once '../objects/comments.php';
+include_once '../config/Database.php';
+include_once '../objects/Comment.php';
 
 // create database and comment objects
 $database = new Database();
