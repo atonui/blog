@@ -28,7 +28,8 @@ if (isset($_GET['user_id']) && $_GET['user_id']!="") {
             "user_email" => $user->user_email,
             "user_image" => $user->user_image,
             "role" => $user->role,
-            "date_created" => $user->date_created
+            "date_created" => $user->date_created,
+            "modified" => $user->modified
         );
 
         // set response code to 200 okay

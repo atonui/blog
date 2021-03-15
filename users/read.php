@@ -33,7 +33,8 @@ if ($count > 0) {
             "user_email" => $row['user_email'],
             "user_image" => $row['user_image'],
             "role" => $row['role'],
-            "date_created" => $row['date_created']
+            "date_created" => $row['date_created'],
+            "modified" => $row['modified']
         );
         array_push($users_array, $users_item);
     }
