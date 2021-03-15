@@ -60,7 +60,8 @@ class User {
         }
     }
 
-    public function create() {
+    public function create(): bool
+    {
         $query = "INSERT INTO ".$this->table_name." (username, user_password, user_firstname, 
                 user_lastname, user_email) VALUES (?,?,?,?,?)";
 
@@ -75,6 +76,55 @@ class User {
         //execute query
         if ($result->execute([$this->username, $this->user_password, $this->user_firstname, $this->user_lastname,
             $this->user_email])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function delete(): bool
+    {
+        $query = "DELETE FROM ".$this->table_name." WHERE user_id=?";
+        $result = $this->conn->prepare($query);
+        if ($result->execute(array($this->user_id))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function check_user(): bool
+    {
+        $query = "SELECT * FROM ".$this->table_name." WHERE user_id=? LIMIT 1";
+        $result = $this->conn->prepare($query);
+        $result->bindParam(1, $this->user_id, PDO::PARAM_INT);
+        $result->execute();
+
+        if ($result->fetchColumn()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update(): bool
+    {
+        $query = "UPDATE ".$this->table_name." SET username=?, user_firstname=?, user_lastname=?,
+        user_email=?, user_image=?, role=? WHERE user_id= ".$this->user_id;
+
+        $result = $this->conn->prepare($query);
+
+        // sanitize inputs
+        $this->username = htmlspecialchars(strip_tags($this->username));
+        $this->user_firstname = htmlspecialchars(strip_tags($this->user_firstname));
+        $this->user_lastname = htmlspecialchars(strip_tags($this->user_lastname));
+        $this->user_email = htmlspecialchars(strip_tags($this->user_email));
+        $this->user_image = htmlspecialchars(strip_tags($this->user_image));
+        $this->role = htmlspecialchars(strip_tags($this->role));
+
+        // execute query
+        if ($result->execute([$this->username, $this->user_firstname, $this->user_lastname,
+            $this->user_email, $this->user_image, $this->role])) {
             return true;
         } else {
             return false;

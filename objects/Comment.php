@@ -27,7 +27,8 @@ class Comment {
         return $result;
     }
 
-    public function check_comment() {
+    public function check_comment(): bool
+    {
         $query = "SELECT * FROM ".$this->table_name." WHERE comment_id=? LIMIT 1";
         $result = $this->conn->prepare($query);
         $result->bindParam(1, $this->comment_id, PDO::PARAM_INT);
@@ -72,7 +73,8 @@ class Comment {
         }
     }
 
-    public function update() {
+    public function update(): bool
+    {
         $query = "UPDATE ".$this->table_name." SET comment_content=?, comment_status=?
         WHERE comment_id=".$this->comment_id;
 

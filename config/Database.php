@@ -20,5 +20,3 @@ class Database {
         return $this->conn;
     }
 }
-
-//$db = new Database();
