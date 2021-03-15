@@ -91,7 +91,8 @@ class Post {
         }
     }
 
-    public function update() {
+    public function update(): bool
+    {
         $query = "UPDATE ".$this->table_name." SET post_category_id=?, post_title=?, post_author=?, post_image=?, 
         post_content=?, post_tags=?, post_comment_count=?, post_status=?, post_author_id=?, post_views_count=?
         WHERE post_id=".$this->post_id;
@@ -123,7 +124,8 @@ class Post {
         }
     }
 
-    public function check_id() {
+    public function check_id(): bool
+    {
         $query = "SELECT * FROM ".$this->table_name." WHERE post_id=? LIMIT 1";
         $result = $this->conn->prepare($query);
         $result->bindParam(1, $this->post_id, PDO::PARAM_INT);
@@ -136,7 +138,8 @@ class Post {
         }
     }
 
-    public function delete() {
+    public function delete(): bool
+    {
         $query = "DELETE FROM ".$this->table_name." WHERE post_id=?";
         $result = $this->conn->prepare($query);
         // $result = bindParam(1, $this->post_id, PDO::PARAM_INT);
@@ -163,5 +166,24 @@ class Post {
         //execute query
         $results->execute();
         return $results;
+    }
+    // read posts with pagination
+    public function readPaging($from_record_num, $records_per_page) {
+        $query = "SELECT * FROM ".$this->table_name." ORDER BY post_date DESC LIMIT ?,?";
+        $result = $this->conn->prepare($query);
+        $result->bindParam(1, $from_record_num, PDO::PARAM_INT);
+        $result->bindParam(2, $records_per_page, PDO::PARAM_INT);
+
+        $result->execute();
+        return $result;
+    }
+
+    // used for paging products
+    public function count() {
+        $query = "SELECT COUNT(*) as total_rows FROM ".$this->table_name;
+        $result = $this->conn->prepare($query);
+        $result->execute();
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row['total_rows'];
     }
 }
