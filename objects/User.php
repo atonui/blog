@@ -137,7 +137,8 @@ class User {
         }
     }
 
-    public function emailExists() {
+    public function emailExists(): bool
+    {
         $query = "SELECT * FROM ".$this->table_name." WHERE user_email=? LIMIT 0,1";
         $result = $this->conn->prepare($query);
 

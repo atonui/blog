@@ -19,21 +19,26 @@ $user = new User($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if (!empty($data)) {
-    $user->username = $data->username;
-    $user->user_password = $data->user_password;
-    $user->user_firstname = $data->user_firstname;
-    $user->user_lastname = $data->user_lastname;
     $user->user_email = $data->user_email;
+    if (!$user->emailExists()) {
+        $user->username = $data->username;
+        $user->user_password = $data->user_password;
+        $user->user_firstname = $data->user_firstname;
+        $user->user_lastname = $data->user_lastname;
 
-    // create the user
-    if ($user->create()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "User created"));
+        // create the user
+        if ($user->create()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "User created"));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to create user"));
+        }
+        // if the data is incomplete
     } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to create user"));
+        http_response_code(400);
+        echo json_encode(array("message" => "Email already exists."));
     }
-    // if the data is incomplete
 } else {
     http_response_code(400);
     echo json_encode(array("message" => "Unable to create user. Data was incomplete."));
