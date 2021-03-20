@@ -22,7 +22,6 @@ $count = $result->rowCount();
 if ($count > 0) {
     // posts array
     $posts_array = array();
-    $posts_array['records'] = array();
 
     // retrieve the posts using fetch()
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -43,7 +42,7 @@ if ($count > 0) {
             "post_author_id" => $row['post_author_id'],
             "post_views_count" => $row['post_views_count']
         );
-        array_push($posts_array['records'], $post_item);
+        array_push($posts_array, $post_item);
     }
 
     // set response code - 200 ok
